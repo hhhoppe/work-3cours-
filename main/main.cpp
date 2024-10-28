@@ -96,3 +96,18 @@ int main() {
 }
 
 #endif  // Stack
+
+#ifdef Queue
+
+#include <iostream>
+#include <iomanip>
+#include "../lib_Queue/queue.h"
+
+int main() {
+
+    ///
+
+    return 0;
+}
+
+#endif  // Queue
