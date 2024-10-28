@@ -1,6 +1,7 @@
-// Copyright 2024 Marina Usova
+// Copyright 2024 Dergynov Sergey
 
 #define EASY_EXAMPLE
+
 #ifdef EASY_EXAMPLE
 
 #include <iostream>
@@ -35,3 +36,33 @@ int main() {
 }
 
 #endif  // EASY_EXAMPLE
+
+#ifdef Pair
+
+#include <iostream>
+#include <iomanip>
+#include "../lib_pair/pair.h"
+
+int main() {
+
+    ///
+
+    return 0;
+}
+
+#endif  // Pair
+
+#ifdef DMassive
+
+#include <iostream>
+#include <iomanip>
+#include "../lib_Dmassive/dmassive.h"
+
+int main() {
+
+    ///
+
+    return 0;
+}
+
+#endif  // DMassive
