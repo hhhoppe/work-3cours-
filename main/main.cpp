@@ -81,3 +81,18 @@ int main() {
 }
 
 #endif  // TVector
+
+#ifdef Stack
+
+#include <iostream>
+#include <iomanip>
+#include "../lib_Stack/stack.h"
+
+int main() {
+
+    ///
+
+    return 0;
+}
+
+#endif  // Stack
