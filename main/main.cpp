@@ -1,6 +1,6 @@
 ﻿// Copyright 2024 Dergynov Sergey
 
-#define Pair
+#define DMassive
 
 #ifdef EASY_EXAMPLE
 

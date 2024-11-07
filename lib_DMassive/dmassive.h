@@ -365,11 +365,10 @@ TDmassive<T>& TDmassive<T>::erase(size_t pos, size_t n) {
 template <typename T>
 TDmassive<T>& TDmassive<T>::remove_all(const T& value) {
 	size_t i = 0;
-	while (i < _states) {
+	while (i < _size) {
 		if (_states[i] == State::busy && _data[i] == value) {
 			erase(i, 1);
-		}
-		else if {
+		} else {
 			i++;
 		}
 	}

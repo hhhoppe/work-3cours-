@@ -4,25 +4,25 @@
 #include "../lib_pair/pair.h"
 
 // Проверка конструктора по умолчанию
-TEST(TestTPairLib, defoult) {
-	TPair<int, double> pair;
-	EXPECT_EQ(pair.first(), 0);
-	EXPECT_EQ(pair.second(), 0.0);
+TEST(TestTPairLib, default) {
+	TPair<int, double> pair0;
+	EXPECT_EQ(pair0.first(), 0);
+	EXPECT_EQ(pair0.second(), 0.0);
 }
 
 // Проверка конструктора с параметрами
 TEST(TestTPairLib, parametr) {
-	TPair<int, char> pair(11, 'a');
-	EXPECT_EQ(pair.first(), 12);
-	EXPECT_EQ(pair.second(), 4.5);
+	TPair<int, int> pair(11, 45);
+	EXPECT_EQ(pair.first(), 11);
+	EXPECT_EQ(pair.second(), 45);
 }
 
 // Проверка конструктора копирования
 TEST(TestTPairLib, copy) {
-	TPair<double, char> original(14.5, 'z');
-	TPair<double, char> copy(original);
+	TPair<double, int> original(14.5, 22);
+	TPair<double, int> copy(original);
 	EXPECT_EQ(copy.first(), 14.5);
-	EXPECT_EQ(copy.second(), 'z');
+	EXPECT_EQ(copy.second(), 22);
 }
 
 // Проверка геттеров
@@ -43,11 +43,11 @@ TEST(TestTPairLib, setters) {
 
 // Проверка оператора присваивания
 TEST(TestTPairLib, assignment) {
-	TPair<char, char> pair1('a', 'b');
-	TPair<char, char> pair2;
-	pair1 = pair2;
-	EXPECT_EQ(pair2.first(), 'a');
-	EXPECT_EQ(pair2.second(), 'b');
+	TPair<int, int> pair1(1, 3);
+	TPair<int, int> pair2;
+	pair2 = pair1;
+	EXPECT_EQ(pair2.first(), 1);
+	EXPECT_EQ(pair2.second(), 3);
 }
 
 // Проверка оператора сравнения
