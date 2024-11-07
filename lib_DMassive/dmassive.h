@@ -99,7 +99,7 @@ TDmassive<T>::TDmassive(const T* mass, size_t n) {
 	_data = new T[_capacity];
 	for (size_t i = 0; i < n; i++) {
 		_data[i] = mass[i];
-		_sates[i] = State::busy;
+		_states[i] = State::busy;
 	}
 }
 
@@ -111,7 +111,7 @@ TDmassive<T>::TDmassive(size_t n, T value) {
 	_data = new T[_capacity];
 	for (size_t i = 0; i < n; i++) {
 		_data[i] = value;
-		_sates[i] = State::busy;
+		_states[i] = State::busy;
 	}
 }
 
@@ -123,7 +123,7 @@ TDmassive<T>::TDmassive(const TDmassive& massive, size_t pos, size_t n) {
 	_data = new T[_capacity];
 	for (size_t i = 0; i < n; i++) {
 		_data[i] = massive._data[pos + i];
-		_sates[i] = State::busy;
+		_states[i] = State::busy;
 	}
 }
 
@@ -137,8 +137,8 @@ TDmassive<T>::~TDmassive() {
 
 template <typename T>
 void TDmassive<T>::print() const noexcept {
-	for (size_t i = 0; i < size; i++) {
-		if (_states[i] != State:deleted) {
+	for (size_t i = 0; i < _size; i++) {
+		if (_states[i] != State::deleted) {
 			std::cout << _data[i] << ", ";
 		}
 	}
@@ -181,7 +181,7 @@ void TDmassive<T>::swap(TDmassive& massive) noexcept {
 template <typename T>
 TDmassive<T>& TDmassive<T>::assign(const TDmassive& massive) {
 	if (this != &massive) {
-		delete[] data;
+		delete[] _data;
 		delete[] _states;
 
 		_capacity = massive._capacity;
@@ -319,7 +319,7 @@ TDmassive<T>& TDmassive<T>::insert(const T& value, size_t pos) {
 		_states[i] = _states[i - 1];
 	}
 	_data[pos] = value;
-	_state[pos] = State::busy;
+	_states[pos] = State::busy;
 	_size++;
 	return *this;
 }
@@ -365,7 +365,7 @@ TDmassive<T>& TDmassive<T>::erase(size_t pos, size_t n) {
 template <typename T>
 TDmassive<T>& TDmassive<T>::remove_all(const T& value) {
 	size_t i = 0;
-	while (i < _state) {
+	while (i < _states) {
 		if (_states[i] == State::busy && _data[i] == value) {
 			erase(i, 1);
 		}
