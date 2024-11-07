@@ -94,10 +94,123 @@ int main() {
 #include <iostream>
 #include <iomanip>
 #include "../lib_Dmassive/dmassive.h"
+#include "../main/utilities.h"
+
+enum Actions { EXIT, INSERT, FIND, REMOVE, CLEAN };
 
 int main() {
+    TDmassive<int> massive;
+    size_t n, pos;
+    int* values = nullptr;
+    int user;
 
-    ///
+    std::exception err;
+    bool exit = false;
+    bool success;
+    InputSystem::InsertMode mode;
+
+    while (!exit) {
+        system("cls");
+        OutputSystem::show(massive);
+        std::cout << "Menu:\n 1. insert,\n 2. find,\n 3. delete,\n 4. clean,\n 0. exit.\nYour choose: ";
+        std::cin >> user;
+        switch (user) {
+        case Actions::EXIT:
+            exit = true;
+            break;
+        case Actions::INSERT:
+            if (values != nullptr) { delete[] values; values = nullptr; }
+            values = InputSystem::insert<int>(&n, &pos, &mode);
+            success = false;
+            if (mode == InputSystem::InsertMode::OneValue) {
+                try {
+                    massive.insert(values[0], pos);
+                    success = true;
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
+            else {
+                std::cout << "TBD" << std::endl;
+            }
+            if (success) {
+                OutputSystem::insert();
+            }
+            system("pause");
+            break;
+        case Actions::FIND:
+        {
+            int value = InputSystem::get_value<int>();
+            try {
+                size_t index = massive.find_first(value);
+                std::cout << "First occurrence at index: " <<
+                    index << std::endl;
+                size_t* _index = massive.find_all(value);
+                size_t count = _index[0] + 1;
+                if (_index != nullptr) {
+                    std::cout << "All occurrences at index: ";
+                    for (size_t i = 1; i < count; ++i) {
+                        std::cout << _index[i] << " ";
+                    }
+                    std::cout << std::endl;
+                    delete[] _index;
+                }
+                else {
+                    std::cout << "Not found." << std::endl;
+                }
+            }
+            catch (std::exception& err) {
+                std::cerr << err.what() << std::endl;
+            }
+            system("pause");
+            break;
+        }
+        case Actions::REMOVE:
+        {
+            std::cout << "Choose remove mode:\n";
+            std::cout << "1 - Remove by index,\n";
+            std::cout << "2 - Remove first index,\n";
+            std::cout << "3 - Remove last ixdex,\n";
+            std::cout << "4 - Remove all.\n";
+            std::cout << "Your choice: ";
+            std::cin >> user;
+            try {
+                if (user == 1) {
+                    size_t pos = InputSystem::get_pos<int>();
+                    massive.remove_by_index(pos);
+                }
+                else if (user == 2) {
+                    int value = InputSystem::get_value<int>();
+                    massive.remove_first(value);
+                }
+                else if (user == 3) {
+                    int value = InputSystem::get_value<int>();
+                    massive.remove_last(value);
+                }
+                else if (user == 4) {
+                    int value = InputSystem::get_value<int>();
+                    massive.remove_all(value);
+                }
+                std::cout << "Removal completed." << std::endl;
+            }
+            catch (std::exception& err) {
+                std::cerr << err.what() << std::endl;
+            }
+            system("pause");
+            break;
+        }
+        case Actions::CLEAN:
+            massive.clear();
+            std::cout << "Massive clear." << std::endl;
+            system("pause");
+            break;
+        default:
+            std::cout << "Invalid choice." << std::endl;
+            system("pause");
+            break;
+        }
+    }
 
     return 0;
 }
